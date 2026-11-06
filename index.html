@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8fc">
+  <title>Ritmo — Organizador de estudos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="Ritmo, início">
+        <span class="brand-mark"><span></span><span></span><span></span></span>
+        <span>ritmo<span class="brand-dot">.</span></span>
+      </a>
+      <div class="workspace-label">SEU ESPAÇO</div>
+      <nav class="main-nav" aria-label="Navegação principal">
+        <a class="nav-link active" href="#inicio"><span class="nav-icon">⌂</span> Visão geral</a>
+        <a class="nav-link" href="#agenda"><span class="nav-icon">▦</span> Agenda <span class="nav-count" id="agenda-count">0</span></a>
+        <a class="nav-link" href="#plano"><span class="nav-icon">☷</span> Plano de estudos</a>
+      </nav>
+      <div class="sidebar-divider"></div>
+      <div class="workspace-label">ORGANIZAÇÃO</div>
+      <button class="nav-link nav-button" id="subjects-filter"><span class="nav-icon">◉</span> Minhas matérias <span class="nav-plus">+</span></button>
+      <div class="subject-list" id="subject-list"></div>
+      <div class="sidebar-bottom">
+        <div class="focus-card">
+          <div class="focus-spark">✦</div>
+          <strong>Um passo de cada vez.</strong>
+          <p>Seu futuro agradece o estudo de hoje.</p>
+          <div class="focus-progress"><span></span></div>
+          <small id="focus-caption">Vamos começar?</small>
+        </div>
+        <button class="profile-button" id="profile-button">
+          <span class="avatar" id="profile-initials">MA</span>
+          <span class="profile-copy"><strong id="profile-name">Marina Alves</strong><small id="profile-course">Estudante</small></span>
+          <span class="profile-more">···</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="main-content" id="inicio">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobile-menu" aria-label="Abrir menu">☰</button>
+        <div class="breadcrumb">Meu espaço <span>/</span> <strong>Visão geral</strong></div>
+        <div class="topbar-actions">
+          <span class="today-label" id="today-label"></span>
+          <button class="icon-button notification-button" aria-label="Notificações">♧<i></i></button>
+          <span class="top-avatar" id="top-avatar" aria-label="Perfil do estudante">MA</span>
+        </div>
+      </header>
+
+      <section class="page-content">
+        <div class="welcome-row">
+          <div>
+            <p class="eyebrow" id="greeting">OLÁ, MARINA 👋</p>
+            <h1>Seu próximo passo<br class="mobile-break"> começa <span>hoje.</span></h1>
+            <p class="welcome-copy">Organize seus estudos com calma. A gente cuida do plano.</p>
+          </div>
+          <button class="primary-button" id="add-event-top"><span>＋</span> Adicionar compromisso</button>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <div class="stat-top"><span>Próximas avaliações</span><span class="stat-icon lavender">▤</span></div>
+            <div class="stat-value" id="stat-events">0</div>
+            <div class="stat-foot"><span class="tiny-dot purple"></span><span id="stat-events-foot">Tudo sob controle</span></div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top"><span>Horas de estudo</span><span class="stat-icon mint">◷</span></div>
+            <div class="stat-value"><span id="stat-hours">0</span><small>h</small></div>
+            <div class="stat-foot"><span class="trend">↗</span> planejadas para esta semana</div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top"><span>Sessões concluídas</span><span class="stat-icon peach">✓</span></div>
+            <div class="stat-value"><span id="stat-completed">0</span><small class="stat-muted">/ <span id="stat-total">0</span></small></div>
+            <div class="stat-foot"><span class="tiny-dot orange"></span><span id="stat-completion-foot">Seu ritmo está começando</span></div>
+          </article>
+        </div>
+
+        <div class="content-grid">
+          <section class="panel upcoming-panel" id="agenda">
+            <div class="panel-heading">
+              <div><p class="section-kicker">FIQUE DE OLHO</p><h2>Próximos compromissos</h2></div>
+              <a class="text-link" href="#agenda">Ver agenda <span>→</span></a>
+            </div>
+            <div class="upcoming-list" id="upcoming-list"></div>
+            <div class="empty-state hidden" id="events-empty">
+              <div class="empty-illustration">✦</div>
+              <strong>Sua agenda está livre por enquanto</strong>
+              <span>Adicione uma prova ou trabalho para montar seu plano.</span>
+              <button class="text-link-button" id="add-event-empty">＋ Adicionar compromisso</button>
+            </div>
+          </section>
+
+          <section class="panel week-panel" id="plano">
+            <div class="panel-heading">
+              <div><p class="section-kicker">SEU RITMO</p><h2>Plano desta semana</h2></div>
+              <button class="more-button" id="refresh-plan" title="Atualizar plano" aria-label="Atualizar plano">↻</button>
+            </div>
+            <div class="week-summary"><span class="week-dot"></span><span id="week-summary-text">Seu plano de estudo aparece aqui</span></div>
+            <div class="week-chart" id="week-chart" aria-label="Horas de estudo por dia"></div>
+            <div class="chart-labels"><span>SEG</span><span>TER</span><span>QUA</span><span>QUI</span><span>SEX</span><span>SÁB</span><span>DOM</span></div>
+            <div class="week-footer"><span><i class="legend-dot"></i> horas planejadas</span><strong id="week-total">0h no total</strong></div>
+          </section>
+        </div>
+
+        <section class="panel plan-panel">
+          <div class="panel-heading plan-heading">
+            <div><p class="section-kicker">SEM CORRERIA</p><h2>Seu plano de estudo</h2></div>
+            <span class="plan-date" id="plan-date"></span>
+          </div>
+          <div class="plan-list" id="plan-list"></div>
+          <div class="empty-plan hidden" id="plan-empty"><span>☀</span><div><strong>Um bom momento para se organizar</strong><p>Adicione uma avaliação e vamos dividir o estudo em etapas mais leves.</p></div><button class="secondary-button" id="add-event-plan">Criar meu plano <span>→</span></button></div>
+        </section>
+        <footer class="page-footer">Feito para estudar no seu ritmo <span>✦</span></footer>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="event-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <form class="event-modal" id="event-form">
+      <div class="modal-heading"><div><p class="section-kicker">MAIS UM PASSO</p><h2 id="modal-title">Adicionar compromisso</h2></div><button type="button" class="modal-close" id="modal-close" aria-label="Fechar">×</button></div>
+      <p class="modal-copy">Conte o que vem por aí. Seu plano se ajusta à data.</p>
+      <label class="field-label">O que você tem?<span class="required">*</span><input name="title" type="text" placeholder="Ex.: Prova de funções" maxlength="70" required></label>
+      <div class="form-row">
+        <label class="field-label">Matéria<span class="required">*</span><input name="subject" type="text" placeholder="Ex.: Matemática" maxlength="35" required></label>
+        <label class="field-label">Tipo<select name="type"><option value="prova">Prova</option><option value="trabalho">Trabalho</option></select></label>
+      </div>
+      <div class="form-row">
+        <label class="field-label">Data de entrega/prova<span class="required">*</span><input name="date" type="date" required></label>
+        <label class="field-label">Horas para estudar<input name="hours" type="number" min="1" max="40" value="4" required><small>O tempo será dividido pelos dias.</small></label>
+      </div>
+      <label class="field-label">Observações <span class="optional">(opcional)</span><textarea name="notes" rows="2" placeholder="Conteúdos, capítulos ou lembretes..."></textarea></label>
+      <div class="form-error hidden" id="form-error" role="alert"></div>
+      <div class="modal-actions"><button type="button" class="cancel-button" id="cancel-modal">Cancelar</button><button type="submit" class="primary-button">Salvar e montar plano <span>→</span></button></div>
+    </form>
+  </div>
+  <div class="modal-backdrop hidden" id="profile-modal" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
+    <form class="event-modal" id="profile-form">
+      <div class="modal-heading"><div><p class="section-kicker">SUA CONTA</p><h2 id="profile-modal-title">Editar perfil</h2></div><button type="button" class="modal-close" id="profile-modal-close" aria-label="Fechar">×</button></div>
+      <p class="modal-copy">Personalize as informações que aparecem no seu espaço.</p>
+      <label class="field-label">Seu nome<span class="required">*</span><input name="name" type="text" placeholder="Como podemos chamar você?" maxlength="60" required></label>
+      <label class="field-label">E-mail<input name="email" type="email" placeholder="voce@exemplo.com" maxlength="120"></label>
+      <label class="field-label">Curso ou turma<input name="course" type="text" placeholder="Ex.: 2º ano · Ensino médio" maxlength="60"></label>
+      <div class="form-error hidden" id="profile-error" role="alert"></div>
+      <div class="modal-actions"><button type="button" class="cancel-button" id="profile-cancel">Cancelar</button><button type="submit" class="primary-button">Salvar perfil <span>→</span></button></div>
+    </form>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
